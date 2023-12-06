@@ -5,10 +5,17 @@ Create the IAM resources for the S3 CSI Driver and install the add-on on an exis
 ## Usage:
 
 ```
+module "eks-s3-csi-driver" {
+  source  = "Z4ck404/eks-s3-csi-driver/aws"
 
+  aws_profile      = "zack-labs"
+  aws_region       = "us-west-2"
+  eks_cluster_name = "zack-demo-0"
+
+  s3_bucket_name = "zack-s3-mount--usw2-az1--x-s3"
+}
 ```
-
-## examples: 
+## examples:
 
 - [AWS Examples S3 mount on eks using the driver](https://github.com/awslabs/mountpoint-s3-csi-driver/blob/main/examples/kubernetes/static_provisioning/static_provisioning.yaml)
 
