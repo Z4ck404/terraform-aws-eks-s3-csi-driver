@@ -35,7 +35,7 @@ resource "aws_iam_role" "s3_role" {
       {
         Effect = "Allow",
         Principal = {
-          Federated = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer,
+          Federated = data.aws_iam_openid_connect_provider.this.arn
         },
         Action = "sts:AssumeRoleWithWebIdentity",
         Condition = {
@@ -56,7 +56,7 @@ resource "aws_iam_role_policy_attachment" "s3_role_attachment" {
 
 
 resource "aws_eks_addon" "s3_csi" {
-  cluster_name      = data.aws_eks_cluster.this.id
+  cluster_name      = data.aws_eks_cluster.eks_cluster.id
   addon_name        = "aws-mountpoint-s3-csi-driver"
   addon_version     = data.aws_eks_addon_version.s3_csi.version
   resolve_conflicts = "OVERWRITE"
