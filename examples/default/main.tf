@@ -4,8 +4,7 @@ provider "aws" {
 }
 
 module "eks-s3-csi-driver" {
-  source  = "Z4ck404/eks-s3-csi-driver/aws"
-  version = "0.0.1"
+  source  = "../.."
 
   aws_profile      = "bigdata-labs"
   aws_region       = "us-west-2"
