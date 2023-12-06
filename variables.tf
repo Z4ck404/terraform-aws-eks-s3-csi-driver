@@ -4,7 +4,7 @@ variable "aws_profile" {
   default     = ""
 }
 
-variable "region" {
+variable "aws_region" {
   description = "Region Code"
   type        = string
 }
