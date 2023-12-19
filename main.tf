@@ -1,5 +1,5 @@
 resource "aws_iam_policy" "s3_policy" {
-  name        = "s3-access-policy"
+  name        = "${var.s3_bucket_name}-s3-access-policy"
   description = "IAM policy for S3 access"
 
   policy = jsonencode({
@@ -27,7 +27,7 @@ resource "aws_iam_policy" "s3_policy" {
 }
 
 resource "aws_iam_role" "s3_role" {
-  name = "S3-CSI-ACCESS-ROLE"
+  name = "${var.s3_bucket_name}-s3-csi-access-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
