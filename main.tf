@@ -1,15 +1,19 @@
 resource "aws_iam_policy" "s3_policy" {
-  name        = "${var.s3_bucket_name}-s3-access-policy"
+  name        = "${var.eks_cluster_name}-s3-access-policy"
   description = "IAM policy for S3 access"
 
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
-        Sid      = "MountpointFullBucketAccess",
-        Effect   = "Allow",
-        Action   = ["s3:ListBucket"],
-        Resource = ["arn:aws:s3:::${var.s3_bucket_name}"],
+        Sid    = "MountpointFullBucketAccess",
+        Effect = "Allow",
+        Action = [
+          "s3:ListBucket"
+        ],
+        Resource = [
+          "arn:aws:s3:::${var.s3_bucket_name}/"
+        ],
       },
       {
         Sid    = "MountpointFullObjectAccess",
@@ -19,16 +23,17 @@ resource "aws_iam_policy" "s3_policy" {
           "s3:PutObject",
           "s3:AbortMultipartUpload",
           "s3:DeleteObject",
-          "s3:ListBucket",
         ],
-        Resource = ["arn:aws:s3:::${var.s3_bucket_name}/*"],
+        Resource = [
+          "arn:aws:s3:::${var.s3_bucket_name}/*"
+        ],
       },
     ],
   })
 }
 
 resource "aws_iam_role" "s3_role" {
-  name = "${var.s3_bucket_name}-s3-csi-access-role"
+  name = "${var.eks_cluster_name}-s3-csi-access-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -41,8 +46,8 @@ resource "aws_iam_role" "s3_role" {
         Action = "sts:AssumeRoleWithWebIdentity",
         Condition = {
           StringLike = {
-            "${data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer}:sub" = "system:serviceaccount:kube-system:s3-csi-*",
-            "${data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer}:aud" = "sts.amazonaws.com",
+            "${replace(data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer, "https://", "")}:sub" = "system:serviceaccount:kube-system:s3-csi-*",
+            "${replace(data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer, "https://", "")}:aud" = "sts.amazonaws.com",
           },
         },
       },
