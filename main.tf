@@ -12,7 +12,7 @@ resource "aws_iam_policy" "s3_policy" {
           "s3:ListBucket"
         ],
         Resource = [
-          "arn:aws:s3:::${var.s3_bucket_name}/"
+          "arn:aws:s3:::${var.s3_bucket_name}"
         ],
       },
       {
