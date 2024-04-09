@@ -2,6 +2,10 @@
 
 Create the IAM resources for the S3 CSI Driver and install the add-on on an existing EKS cluster.
 
+<img width="618" alt="Capture d’écran 2024-04-09 à 07 14 27" src="https://github.com/Z4ck404/terraform-aws-eks-s3-csi-driver/assets/35115877/d808caa3-9fc9-400a-9ed9-b8aa6ad006bd">
+
+
+
 ## Usage:
 
 ```
