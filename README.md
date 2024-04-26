@@ -21,11 +21,7 @@ module "eks-s3-csi-driver" {
 ```
 ## examples:
 
-- Once you create the IAM resources and install the add-on on your cluster, you can go a head and apply the following to test:
-
-`kubectl apply -f /examples/default/example-s3-pvc.yaml`
-
-- You can find more here: [AWS Examples S3 mount on eks using the driver](https://github.com/awslabs/mountpoint-s3-csi-driver/blob/main/examples/kubernetes/static_provisioning/static_provisioning.yaml)
+- [AWS Examples S3 mount on eks using the driver](https://github.com/awslabs/mountpoint-s3-csi-driver/blob/main/examples/kubernetes/static_provisioning/static_provisioning.yaml)
 
 
 ## The module:
