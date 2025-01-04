@@ -62,10 +62,11 @@ resource "aws_iam_role_policy_attachment" "s3_role_attachment" {
 
 
 resource "aws_eks_addon" "s3_csi" {
-  cluster_name      = data.aws_eks_cluster.eks_cluster.id
-  addon_name        = "aws-mountpoint-s3-csi-driver"
-  addon_version     = data.aws_eks_addon_version.s3_csi.version
-  resolve_conflicts = "OVERWRITE"
+  cluster_name                = data.aws_eks_cluster.eks_cluster.id
+  addon_name                  = "aws-mountpoint-s3-csi-driver"
+  addon_version               = data.aws_eks_addon_version.s3_csi.version
+  resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
 
   service_account_role_arn = aws_iam_role.s3_role.arn
 }
